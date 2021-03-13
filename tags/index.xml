@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Guido Portalanza&#39;s Blog</title>
+    <link>https://gportalanza.github.io/gpc/tags/</link>
+    <description>Recent content in Tags on Guido Portalanza&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 09 Oct 2020 09:55:02 -0500</lastBuildDate>
+    
+	<atom:link href="https://gportalanza.github.io/gpc/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Principles</title>
+      <link>https://gportalanza.github.io/gpc/tags/principles/</link>
+      <pubDate>Fri, 09 Oct 2020 09:55:02 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/tags/principles/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AWS</title>
+      <link>https://gportalanza.github.io/gpc/tags/aws/</link>
+      <pubDate>Sun, 20 Sep 2020 09:39:56 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>EC2</title>
+      <link>https://gportalanza.github.io/gpc/tags/ec2/</link>
+      <pubDate>Sun, 20 Sep 2020 09:39:56 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/tags/ec2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terraform</title>
+      <link>https://gportalanza.github.io/gpc/tags/terraform/</link>
+      <pubDate>Sun, 20 Sep 2020 09:39:56 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/tags/terraform/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>index</title>
+      <link>https://gportalanza.github.io/gpc/tags/index/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/tags/index/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scrum on Guido Portalanza&#39;s Blog</title>
+    <link>https://gportalanza.github.io/gpc/categories/scrum/</link>
+    <description>Recent content in Scrum on Guido Portalanza&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 10 Mar 2021 16:41:47 -0500</lastBuildDate>
+    
+	<atom:link href="https://gportalanza.github.io/gpc/categories/scrum/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kanban Adoption Guide for Scrum Teams</title>
+      <link>https://gportalanza.github.io/gpc/posts/kanban-adoption-guide-for-scrum-teams/</link>
+      <pubDate>Wed, 10 Mar 2021 16:41:47 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/posts/kanban-adoption-guide-for-scrum-teams/</guid>
+      <description>I am a strong supporter of Kanban, even more than I am of Scrum, though I know the latter is more popular.</description>
+    </item>
+    
+  </channel>
+</rss>

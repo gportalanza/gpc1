@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/</loc>
+    <lastmod>2021-03-10T16:41:47-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/categories/agile/</loc>
+    <lastmod>2021-03-10T16:41:47-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/categories/</loc>
+    <lastmod>2021-03-10T16:41:47-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/categories/kanban/</loc>
+    <lastmod>2021-03-10T16:41:47-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/posts/kanban-adoption-guide-for-scrum-teams/</loc>
+    <lastmod>2021-03-10T16:41:47-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/posts/</loc>
+    <lastmod>2021-03-10T16:41:47-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/categories/scrum/</loc>
+    <lastmod>2021-03-10T16:41:47-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/posts/agile-principles-explained/</loc>
+    <lastmod>2020-10-09T09:55:02-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/tags/principles/</loc>
+    <lastmod>2020-10-09T09:55:02-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/tags/</loc>
+    <lastmod>2020-10-09T09:55:02-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/tags/aws/</loc>
+    <lastmod>2020-09-20T09:39:56-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/categories/devops/</loc>
+    <lastmod>2020-09-20T09:39:56-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/tags/ec2/</loc>
+    <lastmod>2020-09-20T09:39:56-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/tags/terraform/</loc>
+    <lastmod>2020-09-20T09:39:56-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/posts/using-terraform-to-expose-code-server-on-aws-ec2-as-a-secure-remote-desktop-for-development/</loc>
+    <lastmod>2020-09-20T09:39:56-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/about/</loc>
+    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gportalanza.github.io/gpc/tags/index/</loc>
+  </url>
+  
+</urlset>

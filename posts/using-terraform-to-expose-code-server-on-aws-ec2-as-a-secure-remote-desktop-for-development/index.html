@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light"><head>
+    <title> Guido Portalanza | Using Terraform to Expose Code Server on AWS EC2 as a Secure Remote Desktop for Development </title>
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.74.3" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="It&#39;s all about applying principles in the first place.">
+    
+    <link rel="stylesheet" href="https://gportalanza.github.io/gpc/css/style.min.5be3a155aa89a24586c761b1b5538c4040e3735ee32ac12a708dc1696c0982f5.css" integrity="sha256-W&#43;OhVaqJokWGx2GxtVOMQEDjc17jKsEqcI3BaWwJgvU=" crossorigin="anonymous" type="text/css">
+    <link rel="stylesheet" href="https://gportalanza.github.io/gpc/css/style.d86aba00ab6a110799e70693429a08915a9019087643253e287047bff867eb3a.css" integrity="sha256-2Gq6AKtqEQeZ5waTQpoIkVqQGQh2QyU&#43;KHBHv/hn6zo=" crossorigin="anonymous" type="text/css"><link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    
+    <link rel="shortcut icon" href="https://gportalanza.github.io/gpc/favicons/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://gportalanza.github.io/gpc/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://gportalanza.github.io/gpc/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://gportalanza.github.io/gpc/favicons/favicon-16x16.png">
+    <link rel="canonical" href="https://gportalanza.github.io/gpc/posts/using-terraform-to-expose-code-server-on-aws-ec2-as-a-secure-remote-desktop-for-development/">
+    
+    
+    <script type="text/javascript" src="https://gportalanza.github.io/gpc/js/anatole-header.min.7e2fc0724240b28c6e214687e73a4a6eb6c196bbace546b9dc86e94cca120b5c.js" integrity="sha256-fi/AckJAsoxuIUaH5zpKbrbBlrus5Ua53IbpTMoSC1w=" crossorigin="anonymous"></script><script type="text/javascript" src="https://gportalanza.github.io/gpc/js/custom.min.7c2e4fc5a45f464fc8cfb1643f2272ed4b7fad1af786a5dffe67ba847bac535d.js" integrity="sha256-fC5PxaRfRk/Iz7FkPyJy7Ut/rRr3hqXf/me6hHusU10=" crossorigin="anonymous"></script>
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://gportalanza.github.io/gpc/images/profile.jpg"/>
+
+<meta name="twitter:title" content="Using Terraform to Expose Code Server on AWS EC2 as a Secure Remote Desktop for Development"/>
+<meta name="twitter:description" content="The goal of this post is to show how you can setup an on-demand Ubuntu ec2 instance on AWS plus code-server as your remote IDE."/>
+
+</head><body><div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+      <div class="title">
+        <img src="/gpc/images/profile_picture.jpg" alt="profile picture">
+        <h3 title=""><a href="https://gportalanza.github.io/gpc/">Personal Blog on Agile &amp; DevOps</a></h3>
+        <div class="description">
+          <p>It&#39;s all about applying principles in the first place.</p>
+        </div>
+      </div>
+    </div>
+    <ul class="social-links">
+        
+        <li>
+        <a href="https://www.linkedin.com/in/guido-portalanza" rel="me" aria-label="LinkedIn">
+          <i class="fa fa-2x fa-linkedin" aria-hidden="true"></i>
+        </a>          
+        </li>
+        
+        <li>
+        <a href="mailto:gportalanza@gmail.com" rel="me" aria-label="e-mail">
+          <i class="fa fa-2x fa-envelope" aria-hidden="true"></i>
+        </a>          
+        </li>
+        
+    </ul>
+    <div class="footer">
+      </div>
+    </div>
+</div><div class="main">
+            <div class="page-top animated fadeInDown">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false" >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        <li><a  href="/gpc/"  title="">Home</a></li>
+        
+        
+        <li><a  href="/gpc/posts/"  title="">Posts</a></li>
+        
+        
+        <li><a  href="/gpc/about/"  title="">About</a></li>
+        
+        
+        <li class="theme-switch-item">
+        <a class="theme-switch" title="Switch Theme">
+            <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+        </a>
+        </li>
+    </ul>
+</div>
+
+            <div class="autopagerize_page_element">
+                <div class="content">
+<div class="post animated fadeInDown">
+    <div class="post-content">
+
+      <div class="post-title">
+        <h3>Using Terraform to Expose Code Server on AWS EC2 as a Secure Remote Desktop for Development
+        </h3>
+        
+        <div class="info">
+          <i class="fa fa-sun-o"></i>
+          <span class="date">Sun, Sep 20, 2020</span>
+          <i class="fa fa-clock-o"></i><span class="reading-time">6-minute read</span>
+        </div>
+        
+        </div>
+
+    <p>The goal of this post is to show how you can setup an on-demand Ubuntu ec2 instance on AWS plus code-server as your remote IDE.</p>
+<p>The type of ec2 instance used is t2.micro (1 vCPU, 1 GB RAM), which is priced at <strong>$0.0116 per hour</strong> on US East AWS Region. If you want more power you can pick t2.medium (2 vCPUs, 4 GB RAM) or t2.large (2 vCPUs, 8 GB RAM), whose hourly costs are <strong>$0.0464</strong> and <strong>$0.0928</strong> respectively. With these rates, monthly cost of these instances would be as follows (provided <strong>24x7 usage</strong>):</p>
+<ul>
+<li><strong>t2.micro: $8.352</strong></li>
+<li><strong>t2.medium: $33.408</strong></li>
+<li><strong>t2.large: $66.816</strong></li>
+</ul>
+<p>Note that these costs are for AWS on-demand instances which are the most costly of all ec2 options; 1-year reserved instances and 3-year reserved instances are much more cost-effective, being the former around <strong>40% cheaper</strong>. For full pricing visibility you can check this out:</p>
+<p><a href="https://aws.amazon.com/ec2/instance-types/t2/">AWS EC2 pricing</a></p>
+<p>In addition to the savings when compared to on-premise hardware, cloud desktops allows for zero risk of damaging the company&rsquo;s equipment (because simply there is no longer company&rsquo;s physical hardware to carry), not to mention the savings in operations due to no hardware maintenance needed.</p>
+<p>My local desktop is a Linux Ubuntu v.18.04.2 system with Terraform v.0.12.26, which I use for managing infrastructure as code, just as it was software :)</p>
+<ol>
+<li><a href="#1-pre-requisites">Pre requisites</a></li>
+<li><a href="#2-creating-an-ubuntu-ec2-instance-on-aws-using-hashicorp-terraform-v012">Creating an Ubuntu ec2 instance on AWS using Hashicorp Terraform</a></li>
+<li><a href="#3-accessing-ec2-instance-through-ssh">Accessing ec2 instance through ssh</a></li>
+<li><a href="#4-deploying-code-server-on-an-ec2-instance">Deploying code-server on an ec2 instance</a></li>
+<li><a href="#5-securely-accessing-remote-code-server-through-ssh-tunneling">Securely accessing remote code-server through ssh tunneling</a></li>
+<li><a href="#6-destroying-the-aws-infrastructure">Destroying the aws infrastructure</a></li>
+</ol>
+<h2 id="1-pre-requisites">1. Pre requisites</h2>
+<ul>
+<li>Linux Ubuntu v.18.04 or later.</li>
+<li>Hashicorp Terraform v.0.12 or later running on the Linux machine, as it is used for launching the remote instance. On how to setup Terraform on your linux system you can check this link out:</li>
+</ul>
+<p><a href="https://www.howtoforge.com/how-to-install-terraform-on-ubuntu-1804/">Steps to install Terraform on Linux Ubuntu</a></p>
+<ul>
+<li>An active AWS account and an AWS access key (access key ID and secret access key) for making requests to AWS API.</li>
+</ul>
+<h2 id="2-creating-an-ubuntu-ec2-instance-on-aws-using-hashicorp-terraform-v012">2. Creating an Ubuntu ec2 instance on AWS using Hashicorp Terraform v.0.12</h2>
+<p>All the Terraform configuration files are here:</p>
+<p><a href="https://github.com/gportalanza/ec2-creation-with-terraform.git">https://github.com/gportalanza/ec2-creation-with-terraform.git</a></p>
+<p>Clone this repository into your local machine and go to the local directory where the files got placed and then initialize terraform:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd /path/to/terraform-files
+$ terraform init
+</code></pre></div><p>In order for you to successfully make calls from your local machine to AWS you need to use AWS security credentials. I assume you are familiar with what access keys are; if you aren&rsquo;t see <a href="http://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html">AWS documentation about security credentials</a> for a brief explanation.</p>
+<p>Once you have the AWS access keys you need to use them to set the two access environment variables in your Ubuntu terminal session so that your Terraform scripts can call AWS APIs for EC2 instance creation. Just execute this in your command line:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ export AWS_ACCESS_KEY_ID<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;your-aws-access-key&#34;</span>
+$ export AWS_SECRET_ACCESS_KEY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;your-aws-secret-access-key-id&#34;</span>
+</code></pre></div><p>You will also need a key pair to log into your EC2 instance through ssh. If you are not familiar with key pairs you can see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair">AWS documentation about key pairs and linux instances</a> for an explanation and a step-by-step guide on how to generate them.</p>
+<p>Once you have the key pair (.pem file) in your local machine, make sure only you can read it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ chmod <span style="color:#ae81ff">400</span> /path/to/my-key-pair.pem
+</code></pre></div><p>Now that the access environment variables AWS_ACCESS_KEY and AWS_SECRET_ACCESS_KEY are set and you have the key pair file, you are ready to use the Terraform scripts to create your EC2 instance. Let&rsquo;s first validate them. Being in the Terraform scripts&rsquo; directory, run this command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ terraform validate
+</code></pre></div><p>You should get this message:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Success! The configuration is valid.
+</code></pre></div><p>There are two variables you need to set when running this Terraform apply command:</p>
+<ul>
+<li>cidr_ssh_allowed, used to identify which IP range is authorized to log into your EC2 instance through ssh. Thus you need to find out the public IP you are using to access internet. You can use <a href="https://www.whatismyip.com">https://www.whatismyip.com</a> or any other similar tool. You should use CIDR notation, for which this variable&rsquo;s value is your public IP followed by &ldquo;/32&rdquo;.</li>
+<li>ssh_key, the name of your key pair .pem file (not including the .pem termination).</li>
+</ul>
+<p>Once you have these values, you can run the terraform apply command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ terraform apply -var cidr_ssh_allowed<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;your_public_ip&gt;/32&#34;</span> -var ssh_key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name-of-your-.pem-file&#34;</span>
+</code></pre></div><p>If the script executes successfuly, the public IP of your newly created EC2 instance will be printed, write it down as you will need it to access your remote instance.</p>
+<h2 id="3-accessing-ec2-instance-through-ssh">3. Accessing ec2 instance through ssh</h2>
+<p>The first step to configure your remote ec2 instance is to log into it through ssh. Run this command from your local terminal (the file name should include the .pem termination):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">$</span> <span style="color:#a6e22e">ssh</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">i</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">path</span><span style="color:#f92672">/</span><span style="color:#a6e22e">to</span><span style="color:#f92672">/&lt;</span><span style="color:#a6e22e">name</span><span style="color:#f92672">-</span><span style="color:#66d9ef">of</span><span style="color:#f92672">-</span><span style="color:#a6e22e">your</span><span style="color:#f92672">-</span>.<span style="color:#a6e22e">pem</span><span style="color:#f92672">-</span><span style="color:#a6e22e">file</span><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">ubuntu</span><span style="color:#960050;background-color:#1e0010">@</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">public</span><span style="color:#f92672">-</span><span style="color:#a6e22e">ip</span><span style="color:#f92672">-</span><span style="color:#66d9ef">of</span><span style="color:#f92672">-</span><span style="color:#a6e22e">your</span><span style="color:#f92672">-</span><span style="color:#a6e22e">ec2</span><span style="color:#f92672">-</span><span style="color:#a6e22e">instance</span><span style="color:#f92672">&gt;</span>
+</code></pre></div><p>The system will ask; confirm that you want to continue connecting.</p>
+<h2 id="4-deploying-code-server-on-an-ec2-instance">4. Deploying code-server on an ec2 instance</h2>
+<p>Once you successfully logged into your ec2 instance, you can install the code-server. Run this from your remote EC2 terminal:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -fOL https://github.com/cdr/code-server/releases/download/v3.5.0/code-server_3.5.0_amd64.deb
+$ sudo dpkg -i code-server_3.5.0_amd64.deb
+$ sudo systemctl enable --now code-server@ubuntu
+</code></pre></div><p>Now code-server is exposed on http://127.0.0.1:8080. It can also be managed with the systemctl command. Now let&rsquo;s configure the instance to allow ssh tunneling.</p>
+<h2 id="5-securely-accessing-remote-code-server-through-ssh-tunneling">5. Securely accessing remote code-server through ssh tunneling</h2>
+<h3 id="51-allow-your-remote-instance-for-forwarding-tcp">5.1. Allow your remote instance for forwarding TCP:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo sed -i.bak <span style="color:#e6db74">&#39;s/#AllowTcpForwarding yes/AllowTcpForwarding yes/&#39;</span> /etc/ssh/sshd_config
+</code></pre></div><p>Now sshd should be restarted:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo systemctl restart sshd
+</code></pre></div><h3 id="52-configure-code-server-not-to-ask-for-a-password">5.2. Configure code-server not to ask for a password:</h3>
+<p>Change the code-server configuration file not to ask for a password (unnecessary since ssh tunnel is encripted). Run the sed command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sed -i.bak <span style="color:#e6db74">&#39;s/auth: password/auth: none&#39;</span> ~/.config/code-server/config.yaml
+</code></pre></div><p>Now code-server should be restarted:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo systemctl restart code-server@ubuntu.service
+</code></pre></div><p>As it is now, code-server is up and running on your EC2 instance, listening on port 8080; next just minimize the remote terminal and let&rsquo;s complete your local desktop configuration.</p>
+<h3 id="53-ssh-forwarding">5.3. SSH forwarding</h3>
+<p>Now forward local port 8080 to 127.0.0.1:8080 on the remote instance by running the following command on your local terminal (don&rsquo;t close the terminal or interrupt the process as you need it up for the ssh tunnel to work):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh -N -L 8080:127.0.0.1:8080 -i /path/to/&lt;name-of-your-.pem-file&gt; ubuntu@&lt;public-ip-of-your-ec2-instance&gt;
+</code></pre></div><p>Now if you use your local browser to access http://127.0.0.1:8080, you will be accessing securely code-server in your EC2 machine!</p>
+<p>Once connected to the code-server IDE, you can open another ssh session to your EC2, clone any remote repositories you need to work on, i.e. GitHub&rsquo;s, work your code from your local desktop and, once done, push all your changes to your remote repository and destroy your EC2 instance in order not to be billed for cloud resources unnecessarily.</p>
+<h2 id="6-destroying-the-aws-infrastructure">6. Destroying the aws infrastructure</h2>
+<p>When you are done you can destroy (methaphorically) all the cloud resources you have used; do so with the terraform destroy command from our local terminal; remember that you have to be located in the same folder where terraform sripts are located:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ terraform destroy -var cidr_ssh_allowed<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;your_public_ip&gt;/32&#34;</span> -var ssh_key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name-of-your-.pem-file&#34;</span>
+</code></pre></div><p>You can further improve this model by automating all these steps and creating a customized ami with all the software tools needed by your developers. That way they can get their ec2 instances fully ready, i.e. with no need to execute scripts manually, while serving themselves a cup of coffee :)</p>
+<p>Thanks for reading this far. Any comment or feedback is welcome.</p>
+<h2 id="references">References</h2>
+<p><a href="https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding">https://help.ubuntu.com/community/SSH/OpenSSH/PortForwarding</a>
+<a href="https://help.ubuntu.com/community/SSH/OpenSSH/Configuring#Forwarding">https://help.ubuntu.com/community/SSH/OpenSSH/Configuring#Forwarding</a>
+<a href="https://github.com/cdr/code-server/blob/master/doc/install.md">https://github.com/cdr/code-server/blob/master/doc/install.md</a>
+<a href="https://aws.amazon.com/ec2/instance-types/t2/">https://aws.amazon.com/ec2/instance-types/t2/</a></p>
+
+    </div>
+    <div class="post-footer">
+      <div class="info">
+        
+<span class="separator"><a class="category" href="/gpc/categories/devops/">DevOps</a></span>
+
+        
+    <span class="separator"><a class="tag" href="/gpc/tags/terraform/">Terraform</a><a class="tag" href="/gpc/tags/aws/">AWS</a><a class="tag" href="/gpc/tags/ec2/">EC2</a></span>
+
+      </div>
+    </div>
+
+    
+           
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+
+
+
+<script type="text/javascript" src="https://gportalanza.github.io/gpc/js/jquery.min.86b1e8f819ee2d9099a783e50b49dff24282545fc40773861f9126b921532e4c.js" integrity="sha256-hrHo&#43;BnuLZCZp4PlC0nf8kKCVF/EB3OGH5EmuSFTLkw=" crossorigin="anonymous"></script>
+
+
+
+
+<script type="text/javascript" src="https://gportalanza.github.io/gpc/js/bundle.min.0f9c74cb78f13d1f15f33daff4037c70354f98acfbb97a6f61708966675c3cae.js" integrity="sha256-D5x0y3jxPR8V8z2v9AN8cDVPmKz7uXpvYXCJZmdcPK4=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://gportalanza.github.io/gpc/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js" integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro=" crossorigin="anonymous"></script></html></body>
+
+</html>

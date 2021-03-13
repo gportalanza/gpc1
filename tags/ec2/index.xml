@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>EC2 on Guido Portalanza&#39;s Blog</title>
+    <link>https://gportalanza.github.io/gpc/tags/ec2/</link>
+    <description>Recent content in EC2 on Guido Portalanza&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 20 Sep 2020 09:39:56 -0500</lastBuildDate>
+    
+	<atom:link href="https://gportalanza.github.io/gpc/tags/ec2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using Terraform to Expose Code Server on AWS EC2 as a Secure Remote Desktop for Development</title>
+      <link>https://gportalanza.github.io/gpc/posts/using-terraform-to-expose-code-server-on-aws-ec2-as-a-secure-remote-desktop-for-development/</link>
+      <pubDate>Sun, 20 Sep 2020 09:39:56 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/posts/using-terraform-to-expose-code-server-on-aws-ec2-as-a-secure-remote-desktop-for-development/</guid>
+      <description>The goal of this post is to show how you can setup an on-demand Ubuntu ec2 instance on AWS plus code-server as your remote IDE.</description>
+    </item>
+    
+  </channel>
+</rss>

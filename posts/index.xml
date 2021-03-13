@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Guido Portalanza&#39;s Blog</title>
+    <link>https://gportalanza.github.io/gpc/posts/</link>
+    <description>Recent content in Posts on Guido Portalanza&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 10 Mar 2021 16:41:47 -0500</lastBuildDate>
+    
+	<atom:link href="https://gportalanza.github.io/gpc/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kanban Adoption Guide for Scrum Teams</title>
+      <link>https://gportalanza.github.io/gpc/posts/kanban-adoption-guide-for-scrum-teams/</link>
+      <pubDate>Wed, 10 Mar 2021 16:41:47 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/posts/kanban-adoption-guide-for-scrum-teams/</guid>
+      <description>I am a strong supporter of Kanban, even more than I am of Scrum, though I know the latter is more popular.</description>
+    </item>
+    
+    <item>
+      <title>Agile Principles Explained</title>
+      <link>https://gportalanza.github.io/gpc/posts/agile-principles-explained/</link>
+      <pubDate>Fri, 09 Oct 2020 09:55:02 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/posts/agile-principles-explained/</guid>
+      <description>This post is about how I understand two of the twelve principles of Agile software development underneath The Agile Manifesto.</description>
+    </item>
+    
+    <item>
+      <title>Using Terraform to Expose Code Server on AWS EC2 as a Secure Remote Desktop for Development</title>
+      <link>https://gportalanza.github.io/gpc/posts/using-terraform-to-expose-code-server-on-aws-ec2-as-a-secure-remote-desktop-for-development/</link>
+      <pubDate>Sun, 20 Sep 2020 09:39:56 -0500</pubDate>
+      
+      <guid>https://gportalanza.github.io/gpc/posts/using-terraform-to-expose-code-server-on-aws-ec2-as-a-secure-remote-desktop-for-development/</guid>
+      <description>The goal of this post is to show how you can setup an on-demand Ubuntu ec2 instance on AWS plus code-server as your remote IDE.</description>
+    </item>
+    
+  </channel>
+</rss>
